@@ -14,7 +14,6 @@ services:
 
     volumes:
       - ./server/logs:/opt/teamcity/logs
-      - ./data:/data/teamcity_server/datadir
 
   teamcity-agent:
     image: jetbrains/teamcity-agent
