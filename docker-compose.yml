@@ -13,8 +13,8 @@ services:
       LETSENCRYPT_EMAIL: "alex@chipkineev.ru"
 
     volumes:
-      - ./server/data/lib/jdbc/postgresql-42.7.2:/data/teamcity_server/datadir/lib/jdbc/postgresql-42.7.2:ro
       - ./server/logs:/opt/teamcity/logs
+      - ./data:/data/teamcity_server/datadir
 
   teamcity-agent:
     image: jetbrains/teamcity-agent
