@@ -1,0 +1,34 @@
+version: "3"
+
+services:
+  teamcity-server:
+    image: jetbrains/teamcity-server
+    container_name: teamcity-server
+    ports:
+      - "8111:8111"
+    environment:
+      VIRTUAL_HOST: bs.chipkineev.ru
+      VISTUAL_PORT: 8111
+      LETSENCRYPT_HOST: "bs.chipkineev.ru"
+      LETSENCRYPT_EMAIL: "alex@chipkineev.ru"
+
+    volumes:
+      - ./server/data:/data/teamcity_server/datadir
+      - ./server/logs:/opt/teamcity/logs
+
+  teamcity-agent:
+    image: jetbrains/teamcity-agent
+    container_name: teamcity-agent
+    depends_on:
+      - teamcity-server
+    environment:
+      SERVER_URL: "http://teamcity-server:8111/"
+    volumes:
+      - ./agent:/data/teamcity_agent/conf
+
+networks:
+  default:
+    name: nginx-proxy
+    external: true
+
+
